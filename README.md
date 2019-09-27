@@ -1,65 +1,28 @@
-# The largest heading
-## The second largest heading
-###### The smallest heading
 
 
 
-**This is bold text**
+# Universal epigenetic dissimilarity: DNA methylation variation that is equivalent between monozygotic co-twins and unrelated individuals.
+#
+#### Benjamin Planterose Jiménez, Fan Liu, Diego Montiel González, Jordana Bell, Manfred Kayser, Athina Vidaki
 
-*This text is italicized*
+### Department of Genetic Identification 
+#### Erasmus MC University Medical Centre Rotterdam, The Netherlands
 
-~~This was mistaken text~~
+## Requirements
 
-**This text is _extremely_ important**
-
-***All this text is important***
-
-
-In the words of Abraham Lincoln:
-
-> Pardon my French
-
-
-
-Some basic Git commands are:
-```
-git status
-git add
-git commit
-```
-
-
-
-This site was built using [GitHub Pages](https://pages.github.com/).
-
-
-- George Washington
-- John Adams
-- Thomas Jefferson
-
-
-
-1. James Madison
-2. James Monroe
-3. John Quincy Adams
-
-
-
-1. First list item
-    - First nested list item
-    - Second nested list item
-    
-    
-    
-    
-    
-- [x] Finish my changes
-- [ ] Push my commits to GitHub
-- [ ] Open a pull request
+    Operating system: tested on Ubuntu 16.04LTS
+    R: tested on R version 3.4.4 (2018-03-15) -- "Someone to Lean On"
+    RAM requirements: Especially for data preprocessing, do not attempt to run without at least 50 GB of RAM.
 
 
 
 
-@github/support What do you think about these updates?
+Please send an email at b.planterosejimenez@erasmusmc.nl if any issues arise while running.
+
+### References and Supporting Information
+B. Planterose *et al.* (**2018**). Universal epigenetic dissimilarity: DNA methylation variation that is equivalent between monozygotic co-twins and unrelated individuals.
+
+
+
 
 
