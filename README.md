@@ -20,7 +20,7 @@
 Please send an email at b.planterosejimenez@erasmusmc.nl if any issues arise while running.
 
 ### References and Supporting Information
-B. Planterose *et al.* (**2018**). Universal epigenetic dissimilarity: DNA methylation variation that is equivalent between monozygotic co-twins and unrelated individuals.
+B. Planterose *et al* (**2018**). Universal epigenetic dissimilarity: DNA methylation variation that is equivalent between monozygotic co-twins and unrelated individuals.
 
 
 
