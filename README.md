@@ -1,7 +1,6 @@
 
 
-
-# Universal epigenetic dissimilarity: DNA methylation variation that is equivalent between monozygotic co-twins and unrelated individuals.
+# Equivalent DNA methylation variation between monozygotic co-twins and unrelated individuals reveals universal epigenetic inter-individual dissimilarity
 #
 #### Benjamin Planterose Jiménez, Fan Liu, Diego Montiel González, Jordana Bell, Manfred Kayser, Athina Vidaki
 
