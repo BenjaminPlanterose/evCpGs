@@ -16,7 +16,7 @@
 
 ## Structure
 
-In the folder /Scripts/ you may find all the scripts employed in the data analysis of our Genome Biology paper. These are separated into the 7 sections of the paper:
+Under the folder /Scripts/ you may find all  R-scripts employed in the data analysis of our Genome Biology paper. These are separated into the 7 sections, corresponding to those of the paper:
 
   1) *Data preparation*: all scripts employed in the preprocessing of 450K data whose raw IDAT data were available: E-risk (GSE105018), Danish Twin Cohort (GSE61496), TwinsUK, NSPHS (GSE87571), Chinese Children (GSE104812), ENID-Gambia (GSE99863) and Longitudinal adipose tissue (GSE103768).
   
@@ -37,7 +37,7 @@ In the folder /Scripts/ you may find all the scripts employed in the data analys
 
 
 
-Please send an email at b.planterosejimenez@erasmusmc.nl if any issues arise while running.
+Please contact us at b.planterosejimenez@erasmusmc.nl for any issues arising.
 
 ### References and Supporting Information
 B. Planterose *et al* (**2020**). Equivalent DNA methylation variation between monozygotic co-twins and unrelated individuals reveals universal epigenetic inter-individual dissimilarity. *Genome Biology*
