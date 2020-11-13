@@ -19,7 +19,7 @@
 Please send an email at b.planterosejimenez@erasmusmc.nl if any issues arise while running.
 
 ### References and Supporting Information
-B. Planterose *et al* (**2018**). Equivalent DNA methylation variation between monozygotic co-twins and unrelated individuals reveals universal epigenetic inter-individual dissimilarity. *Genome Biology*
+B. Planterose *et al* (**2020**). Equivalent DNA methylation variation between monozygotic co-twins and unrelated individuals reveals universal epigenetic inter-individual dissimilarity. *Genome Biology*
 
 
 
