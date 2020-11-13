@@ -5,11 +5,17 @@
 #### Benjamin Planterose Jiménez<sup>1</sup>, Fan Liu<sup>1, 2, 3</sup>, Amke Caliebe<sup>4, 5</sup>, Diego Montiel González<sup>1</sup>, Jordana T. Bell<sup>6</sup>, Manfred Kayser<sup>1</sup>, Athina Vidaki<sup>1</sup>
 
 1 Department of Genetic Identification, Erasmus MC University Medical Center Rotterdam, Rotterdam, the Netherlands.
+
 2 Key Laboratory of Genomic and Precision Medicine, Beijing Institute of Genomics, Chinese Academy of Sciences, Beijing, P.R. China.
+
 3 University of Chinese Academy of Sciences, Beijing, P.R. China.
+
 4 Institute of Medical Informatics and Statistics, Kiel University, Kiel, Germany.
+
 5 University Medical Centre Schleswig-Holstein, Kiel, Germany.
+
 6 Department of Twin Research and Genetic Epidemiology, King’s College London, London, United Kingdom.
+
 
 
 ## Requirements
