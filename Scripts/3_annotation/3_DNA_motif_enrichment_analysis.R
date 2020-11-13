@@ -34,19 +34,19 @@ parse.coordinates.out <- function(annotation, distance, name)
 #############################################   Parse coordinates to extract   #############################################
 
 old.dir <- getwd()
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+# setwd("where")
 RGSET <- read.metharray.exp(getwd())
 full_annot <- getAnnotation(RGSET)
 annotation <- functional.annotation.hg19(stochCpG)
 
 # Read raw data
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 beta1 <- fread('2019-08-21_SQN_combat_cellcomp.txt', nThread = 4)
 beta1 <- process.beta.fread(beta1); dim(beta1) # 346555    852
 
 full_annot <- full_annot[rownames(beta1),]
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/TFBS/')
+# setwd("where")
 
 # Target
 parse.coordinates.out(annotation, 500, 'evCpGs')
@@ -75,7 +75,7 @@ parse.coordinates.out(full_annot, 500, 'bg')
 #############################################   GC content   #############################################
 
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/TFBS/')
+# setwd("where")
 
 target <- read.fasta('stochCpGs500.fa', seqtype = 'DNA')
 length(target) # 333
@@ -86,7 +86,7 @@ length(bg) # 346555
 gc_target <- sapply(1:length(target), function(x) mean(target[[x]] %in% c('g', 'c')))
 gc_bg <- sapply(1:length(bg), function(x) mean(bg[[x]] %in% c('g', 'c')))
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('GC', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 plot(density(gc_bg), xlim = c(0,1), ylim = c(0,4.5), lty = 2, col = 'green4', lwd = 3,
      xlab = 'GC content', main = 'CpG site ± 500 bp')

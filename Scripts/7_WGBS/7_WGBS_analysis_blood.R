@@ -269,7 +269,7 @@ targetted_positional_enrichment_analysis <- function(twinL, twinR, epsilon, wind
 
 #############################################   Prepare phenotypes   #############################################
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/')
+# setwd("where")
 phenotype <- fread('E-MTAB-3549.sdrf.txt')
 phenotype <- phenotype[,c(1,3,4,5,6,8,9,32)]
 
@@ -289,7 +289,7 @@ write.table(paste('mv', phenotype$`Derived Array Data File`, './MZ_twins'), quot
 #############################################   Pre-processing 1   #############################################
 
 # Read raw files
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/MZ_twins/')
+# setwd("where")
 read.files()
 
 dim(twin1L) # 25,505,737 positions
@@ -312,7 +312,7 @@ dim(twin7R) # 26,167,333 positions
 # ii) Filtering positions with coverage less than two reads per strand
 # iii) add position ID column
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/MZ_twins/')
+# setwd("where")
 process.files(); gc() # Takes long!
 
 dim(twin1L) # 7,176,329 positions
@@ -336,11 +336,11 @@ write.files()
 #############################################   Pre-processing 2   #############################################
 
 # Read process1 files
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/')
+# setwd("where")
 read.files2()
 
 # Read blacklisted regions
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/MZ_twins/blacklist/')
+# setwd("where")
 DBR <- fread('consensusBlacklist.bed')
 DER <- fread('dukeExcludeRegions.bed')
 blacklist <- rbind(DBR, DER)
@@ -349,7 +349,7 @@ dim(blacklist) # 2060 6
 # Processing 2 consists of: 
 # i) Excluding DBR and DER blacklisted regions
 
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/')
+# setwd("where")
 process.files2()
 
 dim(twin1L) # 7155734 positions
@@ -368,14 +368,14 @@ dim(twin7L) # 10472334 positions
 dim(twin7R) # 9868506 positions
 
 # Export files
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/')
+# setwd("where")
 list.files(pattern = '*.txt') # character(0)
 write.files()
 
 #############################################   Pre-processing 3   #############################################
 
 # Read process2 files
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/')
+# setwd("where")
 list.files(pattern = '*.txt')
 read.files2()
 
@@ -400,7 +400,7 @@ dim(twin7L) # 2363754 positions
 dim(twin7R) # 2025865 positions
 
 # Export files
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/')
+# setwd("where")
 list.files(pattern = '*.txt') # character(0)
 write.files()
 
@@ -425,7 +425,7 @@ process.common.twin(twin6L, twin6R, common6)
 process.common.twin(twin7L, twin7R, common7)
 
 # Export files
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/')
+# setwd("where")
 list.files(pattern = '*.txt') # character(0)
 write.files()
 
@@ -463,7 +463,7 @@ quantile(abs(sampled.diff), 0.95) # 0.4
 #############################################   Data analysis   #############################################
 
 # Read common positions
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/')
+# setwd("where")
 list.files(pattern = '*.txt')
 read.files2()
 
@@ -645,7 +645,7 @@ bed_1 <- prepare.bed(list_1)
 bed_2 <- prepare.bed(list_2)
 
 # Initialize files with header
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/tracks/')
+# setwd("where")
 write.table(x = 'track name=pairedReads description=Clone Paired Reads useScore=1', file = 'wgbs_target_twin2.bed',
             quote = F, sep = '\t', row.names = F, col.names = F)
 write.table(x = 'track name=pairedReads description=Clone Paired Reads useScore=1', file = 'wgbs_target_twin3.bed',
@@ -672,7 +672,7 @@ coverage_track <- data.frame(seqname = 'chr5',
                          start = as.integer(bins[-length(bins)]), end = as.integer(bins[2:length(bins)] - 1),
                          name = paste('chr5', paste(bins[-length(bins)], bins[2:length(bins)] - 1, sep = '-'), sep = ':'),
                          score = 1000*counts/max(counts))
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/tracks/')
+# setwd("where")
 write.table(x = 'track name=pairedReads description=Clone Paired Reads useScore=1 graphType=line viewLimits=0:1000', file = 'coverage_bg_withouttarget_twin2_chr5.bed',
             quote = F, sep = '\t', row.names = F, col.names = F)
 fwrite(x = coverage_track, file = 'coverage_bg_withouttarget_twin2_chr5.bed', nThread = 4, sep = '\t', col.names = F, append = T)
@@ -683,7 +683,7 @@ coverage_track <- data.frame(seqname = 'chr5',
                              start = as.integer(bins[-length(bins)]), end = as.integer(bins[2:length(bins)] - 1),
                              name = paste('chr5', paste(bins[-length(bins)], bins[2:length(bins)] - 1, sep = '-'), sep = ':'),
                              score = 1000*counts/max(counts))
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/tracks/')
+# setwd("where")
 write.table(x = 'track name=pairedReads description=Clone Paired Reads useScore=1 graphType=line viewLimits=0:1000', file = 'coverage_bg_withouttarget_twin3_chr5.bed',
             quote = F, sep = '\t', row.names = F, col.names = F)
 fwrite(x = coverage_track, file = 'coverage_bg_withouttarget_twin3_chr5.bed', nThread = 4, sep = '\t', col.names = F, append = T)
@@ -696,7 +696,7 @@ coverage_track <- data.frame(seqname = 'chr5',
                              start = as.integer(bins[-length(bins)]), end = as.integer(bins[2:length(bins)] - 1),
                              name = paste('chr5', paste(bins[-length(bins)], bins[2:length(bins)] - 1, sep = '-'), sep = ':'),
                              score = 1000*counts/max(counts))
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/tracks/')
+# setwd("where")
 write.table(x = 'track name=pairedReads description=Clone Paired Reads useScore=1 graphType=line viewLimits=0:1000', file = 'coverage_bg_twin2_chr5.bed',
             quote = F, sep = '\t', row.names = F, col.names = F)
 fwrite(x = coverage_track, file = 'coverage_bg_twin2_chr5.bed', nThread = 4, sep = '\t', col.names = F, append = T)
@@ -707,7 +707,7 @@ coverage_track <- data.frame(seqname = 'chr5',
                              start = as.integer(bins[-length(bins)]), end = as.integer(bins[2:length(bins)] - 1),
                              name = paste('chr5', paste(bins[-length(bins)], bins[2:length(bins)] - 1, sep = '-'), sep = ':'),
                              score = 1000*counts/max(counts))
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/tracks/')
+# setwd("where")
 write.table(x = 'track name=pairedReads description=Clone Paired Reads useScore=1 graphType=line viewLimits=0:1000', file = 'coverage_bg_twin3_chr5.bed',
             quote = F, sep = '\t', row.names = F, col.names = F)
 fwrite(x = coverage_track, file = 'coverage_bg_twin3_chr5.bed', nThread = 4, sep = '\t', col.names = F, append = T)

@@ -79,7 +79,7 @@ create.manhattan.plot <- function(pvals, hvCpG, main, alpha_corrected)
   # Extract annotation. The easiest way to do so, strangely, is to create a directory with 
   # a single sample IDAT (both channels). Read the IDAT and extract the annotation with
   # minfi functions.
-  old.dir <- getwd(); setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+  old.dir <- getwd(); # setwd("where")
   RGSET <- read.metharray.exp(getwd()); setwd(old.dir)
   
   annotation <- getAnnotation(RGSET)
@@ -163,12 +163,12 @@ var_across_age <- function(x, age, bin.span, offset)
 #############################################   Read data/phenotypes   #############################################
 
 # Read evCpGs
-setwd("/media/ben/DATA/Ben/1_evCpGs/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'evCpGs.txt')$V1)
 sig = stochCpG
 
 a = rowMeans(beta1[stochCpG,])
-setwd('~/Desktop/')
+# setwd("where")
 names(a) <- stochCpG
 write.table(a, file = 'means_erisk.txt', row.names = T, col.names = F, quote = F, sep = '\t')
 
@@ -176,7 +176,7 @@ write.table(a, file = 'means_erisk.txt', row.names = T, col.names = F, quote = F
 ##### Population datasets ####
 
 # Population
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/beta/Population/')
+# setwd("where")
 Population <- fread('2019-09-10_SQN_combat_cellcomp.txt', nThread = 4)
 Population <- process.beta.fread(Population)
 dim(Population) # 346469    727
@@ -184,7 +184,7 @@ iqrs1 = rowIQRs(Population)
 names(iqrs1) = rownames(Population)
 rm(Population); gc()
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/beta/Population/")
+# setwd("where")
 phenotype <- getGEO('GSE87571', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -196,7 +196,7 @@ gender <- as.factor(pheno[IDs, 2])
 
 
 # Gambia
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/beta/Gambia/")
+# setwd("where")
 gambia <- fread('2019-09-10_SQN_combat_cellcomp_Gambia.txt')
 gambia <- process.beta.fread(gambia)
 dim(gambia) # 346099    240
@@ -207,7 +207,7 @@ rm(gambia); gc()
 
 ##### Twin datasets ####
 # TwinsUK
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/beta/TwinsUK/")
+# setwd("where")
 TwinsUK <- fread('2019-09-09_sqn_combat_cellcomp.txt', nThread = 4)
 TwinsUK <- process.beta.fread(TwinsUK)
 dim(TwinsUK) # 346705    656
@@ -218,7 +218,7 @@ names(iqrs3) = rownames(TwinsUK)
 rm(TwinsUK); gc()
 
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/twins_uk/')
+# setwd("where")
 phenotype <- read.table(file = 'phenotype.txt', header = T)
 barcodes <- as.vector(phenotype$Barcode)
 age_UK <- phenotype$Age[barcodes %in% colnames(TwinsUK)]
@@ -226,7 +226,7 @@ names(age_UK) <- barcodes
 TwinsUK <- TwinsUK[,names(age_UK)]
 
 # E-risk
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/beta/E_risk/")
+# setwd("where")
 beta1 <- fread('2019-08-21_SQN_combat_cellcomp.txt', nThread = 4)
 beta1 <- process.beta.fread(beta1); dim(beta1) # 346555    852
 matching <- read.table('matching_MZ.txt', header = T)
@@ -238,7 +238,7 @@ rm(beta1); gc()
 
 
 # Danish
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/beta/Danish_cohort/")
+# setwd("where")
 danish <- fread('2019-09-09_sqn_combat_cellcomp.txt')
 danish <- process.beta.fread(danish)
 replicates_excluded <- c('GSM1506278', 'GSM1506587',
@@ -258,7 +258,7 @@ matching_danish <- read.table('matching_danish.txt', header = T)
 danish <- arrange.beta(danish, matching_danish)
 rgSamples <- unlist(lapply(strsplit(colnames(danish), split = '_'), function(x) x[1]))
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/GSE61496_external_validation/')
+# setwd("where")
 phenotype <- getGEO('GSE61496', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -280,7 +280,7 @@ table(abs(age_danish[seq(1,length(age_danish),2)] - age_danish[seq(2,length(age_
 
 
 # Small population children
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/')
+# setwd("where")
 beta.sqn = fread("2020-04-17_SQN_nocombat_cellcomp.txt")
 beta.sqn = process.beta.fread(beta.sqn)
 dim(beta.sqn) # 347264     48
@@ -290,7 +290,7 @@ rm(beta.sqn); gc()
 
 list(iqrs1, iqrs2, iqrs3, iqrs4, iqrs5, iqrs6)
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/beta/")
+# setwd("where")
 saveRDS(list(iqrs1, iqrs2, iqrs3, iqrs4, iqrs5, iqrs6), "IQR_list.rds")
 
 
@@ -309,7 +309,7 @@ pvals <- res$P.value
 names(pvals) <- res$CPG.Labels
 sig_age <- names(which(p.adjust(pvals, 'bonferroni') < 0.05))
 
-setwd('~/Desktop/')
+# setwd("where")
 a = pvals[stochCpG]
 names(a) <- stochCpG
 write.table(a, file = 'pvals_assoc.txt', row.names = T, col.names = F, quote = F, sep = '\t')
@@ -319,7 +319,7 @@ write.table(a, file = 'pvals_assoc.txt', row.names = T, col.names = F, quote = F
 summary(model1)
 plot(model1, tplot = T, classic = F)
 create.manhattan.plot(pvals, sig_age, 'Age dependency', 0.05/length(pvals1))
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/age_per_CpG/')
+# setwd("where")
 for(i in 1:length(cross_stoch))
 {
   tiff(filename = paste(cross_stoch[i], 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
@@ -339,7 +339,7 @@ for(i in 1:length(cross_stoch))
 
 
 pvals.heter <- perform.whitetest(stochCpG, Population, age, gender)
-setwd('~/Desktop/')
+# setwd("where")
 a = pvals.heter[stochCpG]
 names(a) <- stochCpG
 write.table(a, file = 'pvals_het.txt', row.names = T, col.names = F, quote = F, sep = '\t')
@@ -368,7 +368,7 @@ table(colours)/length(colours)
 thr = -log10(0.05/length(pvals.heter))
 x = -log10(pvals.heter)
 y = -log10(pvals)
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('pvals_age_heteroscedasticity', 'tiff', sep = '.'), width = 2.23, height = 2.23, units = 'in', res = 300, compression = 'none')
 
 #############################################   Comparing heteroscedasticity and association   #############################################
@@ -386,7 +386,7 @@ dev.off()
 # 2 most remarkable examples
 
 # Example 1
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('epigenetic_drift', 'tiff', sep = '.'), width = 2.23, height = 2.23, units = 'in', res = 300, compression = 'none')
 i = 'cg00639615'
 var_age <- var_across_age(Population[i,], age, 10, 2)
@@ -405,7 +405,7 @@ lines(var_age$age, (var_age$p) - (var_age$sd), col = 'red2', lty = 2, lwd = 1)
 dev.off()
 
 # Example 2
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('epigenetic_drift', 'tiff', sep = '.'), width = 2.23, height = 2.23, units = 'in', res = 300, compression = 'none')
 i = 'cg23479922'
 var_age <- var_across_age(Population[i,], age, 10, 2)
@@ -436,7 +436,7 @@ delta.erisk <- abs(beta1[cross_sig, seq(1,ncol(beta1),2)]-
                    beta1[cross_sig, seq(2,ncol(beta1),2)])
 
 # Perform Kolmogorov-Smirnov test
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('erisk_uk_deltabeta', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 pval_KS <- ks.test(as.numeric(delta.UK), as.numeric(delta.erisk), alternative = 'greater')$p.value
 plot(ecdf(delta.UK), col = 'firebrick3', main = paste('-log10(p-val_KS) =', round(-log10(pval_KS), 4), '\n',  length(cross_sig), 'out of', length(sig), 'stochCpGs', sep = ' '),
@@ -497,7 +497,7 @@ melted <- na.omit(melted)
 melted$variable <- factor(melted$variable, levels = c("Population","Children", "Gambia", "Danish", "TwinsUK", "Erisk"))
 
 # Perform plot
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/beta/")
+# setwd("where")
 tiff(filename = paste('ridge_age', 'tiff', sep = '.'), width = 2.5, height = 2.5, units = 'in', res = 300, compression = 'none')
 ggplot(melted, aes(x = value, y = variable, fill = study_type)) +
   geom_density_ridges(alpha =0.5, size = 0.1) + theme_ridges(grid = T, center_axis_labels = T, font_size = 4, line_size = 0.25) +

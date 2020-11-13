@@ -58,13 +58,13 @@ compute_ICC = function(i, beta, individual, time)
 }
 
 # Read longitudinal adipose tissue data
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/")
+# setwd("where")
 nocombat.beta.sqn = fread("2020-04-06_SQN_nocombat_nocellcomp.txt")
 nocombat.beta.sqn = process.beta.fread(nocombat.beta.sqn)
 dim(nocombat.beta.sqn) # 346987     57
 
 # Obtain phenotypes
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/')
+# setwd("where")
 phenotype <- getGEO('GSE103768', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -82,17 +82,17 @@ mdsPlot(nocombat.beta.sqn, sampGroups = individuals, pch = 19)
 ##
 
 # Obtain replicated evCpGs in adipose tissue
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'replicated.txt', header = F)$V1); length(stochCpG) # 154
 cross_stoch = stochCpG[stochCpG %in% rownames(nocombat.beta.sqn)]; length(cross_stoch) # 154
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/discovery/')
+# setwd("where")
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 tested0 = names(pvals1); length(tested0) # 4652
 tested = tested0[!(tested0 %in% stochCpG)]; length(tested) # 4319
 cross_tested = tested[tested %in% rownames(nocombat.beta.sqn)]; length(cross_tested) # 4306
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/mQTL/')
+# setwd("where")
 control <- as.vector(read.table(file = 'control.txt')$V1); length(control) # 998
 cross_control = control[control %in% rownames(nocombat.beta.sqn)][1:length(cross_stoch)]; length(cross_control) # 154
 

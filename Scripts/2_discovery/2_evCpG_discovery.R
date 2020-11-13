@@ -130,7 +130,7 @@ create.manhattan.plot <- function(pvals, hvCpG, main, alpha_corrected)
   # Extract annotation. The easiest way to do so, strangely, is to create a directory with 
   # a single sample IDAT (both channels). Read the IDAT and extract the annotation with
   # minfi functions.
-  old.dir <- getwd(); setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+  old.dir <- getwd(); # setwd("where")
   RGSET <- read.metharray.exp(getwd()); setwd(old.dir)
   annotation <- getAnnotation(RGSET)
   names <- annotation$Name
@@ -209,14 +209,14 @@ visualize.CpG.testing <- function(hvCpG, beta1, beta2, beta3, ylim, cex)
 #############################################   Read processed data (see data_prep.R)   #############################################
 
 # Set working directory
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/young_external_validation/')
+# setwd("where")
 
 # Read matching twins
 matching <- read.table(file = "matching_MZ.txt", header = T)
 head(matching)
 
 # Read raw data (all three normalisations)
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 beta1 <- fread('2019-08-21_SQN_combat_cellcomp.txt', nThread = 4)
 beta1 <- process.beta.fread(beta1); dim(beta1) # 346555    852
 beta2 <- fread('2019-08-21_dasen_combat_cellcomp.txt', nThread = 4)
@@ -228,7 +228,7 @@ beta3 <- process.beta.fread(beta3); dim(beta3) # 346555    852
 #############################################   Post-normalisation filters   #############################################
 
 # Low ICC probes
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/ICC_replicates/') # Bose M et al. BMC Bioinformatics. 2014; 15(1): 312. 
+# setwd("where")
 dataset <- fread('ICC_values.csv')
 probes2remove <- as.vector(dataset$`ilmnid(CpG site)`[dataset$`ICC value` < 0.37]); length(probes2remove) # 270527
 
@@ -320,7 +320,7 @@ pvals2 <- hvCpG.discovery(beta2, matching, epsilon); gc()
 epsilon = median(bmiq_twin); print(epsilon) # 0.03566612
 pvals3 <- hvCpG.discovery(beta3, matching, epsilon); gc()
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 saveRDS(pvals1, "y_rTOST_SQN_ComBat_cellcomp_pvalues.rds")
 saveRDS(pvals2, "y_rTOST_dasen_ComBat_cellcomp_pvalues.rds")
 saveRDS(pvals3, "y_rTOST_oobRELICQNBMIQ_ComBat_cellcomp_pvalues.rds")
@@ -328,7 +328,7 @@ saveRDS(pvals3, "y_rTOST_oobRELICQNBMIQ_ComBat_cellcomp_pvalues.rds")
 
 #############################################   Discovery follow-up   #############################################
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 pvals2 <- readRDS('y_rTOST_dasen_ComBat_cellcomp_pvalues.rds')
@@ -338,7 +338,7 @@ pvals3 <- readRDS('y_rTOST_oobRELICQNBMIQ_ComBat_cellcomp_pvalues.rds')
 pvals <- sapply(1:length(pvals1), function(x) max(c(pvals1[[x]], pvals2[[x]], pvals3[[x]])))
 names(pvals) <- names(pvals1)
 
-setwd('~/Desktop/')
+# setwd("where")
 write.table(x = pvals[sig], col.names = F, row.names = T, quote = F, sep = '\t', file = 'pvalues_discovery.txt')
 
 
@@ -350,7 +350,7 @@ sig2 <- names(which(unlist(pvals2) < alpha))
 sig3 <- names(which(unlist(pvals3) < alpha))
 sig <- Reduce(intersect, list(sig1, sig2, sig3))
 length(sig) # 333
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 write.table(x = sig, file = 'stochCpG.txt', quote = F, row.names = F, col.names = F, sep = '\t')
 
 
@@ -359,7 +359,7 @@ write.table(x = sig, file = 'stochCpG.txt', quote = F, row.names = F, col.names 
 # Make Venn diagram for different normalisations
 a <- venn(list(sig1, sig2, sig3))
 a <- attr(a, 'intersections')
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('venn', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 grid.newpage()
 draw.triple.venn(area1 = length(sig1), area2 = length(sig2), area3 = length(sig3), 
@@ -372,17 +372,17 @@ dev.off()
 
 # Make separate manhattan plots
 par(mfrow = c(3,1))
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('SQN_manhattan', 'tiff', sep = '.'), width = 7.5, height = 10, units = 'in', res = 300, compression = 'none')
 create.manhattan.plot(unlist(pvals1), sig, 'SQN', alpha)
 dev.off()
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('dasen_manhattan', 'tiff', sep = '.'), width = 7.5, height = 10, units = 'in', res = 300, compression = 'none')
 create.manhattan.plot(unlist(pvals2), sig, 'Dasen', alpha)
 dev.off()
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('bmiq_manhattan', 'tiff', sep = '.'), width = 7.5, height = 10, units = 'in', res = 300, compression = 'none')
 create.manhattan.plot(unlist(pvals3), sig, 'BMIQ', alpha)
 dev.off()
@@ -393,7 +393,7 @@ pvals_list <- list(unlist(pvals1), unlist(pvals2), unlist(pvals3))
 pvals_combined <- lapply(1:length(pvals1), function(x) max(c(pvals_list[[1]][x], pvals_list[[2]][x], pvals_list[[3]][x])))
 names(pvals_combined) <- names(pvals1)
 alpha <- 0.05/length(pvals_combined) # Bonferroni threshold
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('combined_manhattan', 'tiff', sep = '.'), width = 3.346, height = 5.238, units = 'in', res = 300, compression = 'none')
 par(mar=c(2.1, 2.1, 0, 2.1), mgp=c(3, 1, 0), las=0)
 create.manhattan.plot(unlist(pvals_combined), sig, 'Combined', alpha)
@@ -465,7 +465,7 @@ dev.off()
 beta1 <- beta1[stochCpG,]
 beta2 <- beta2[stochCpG,]
 beta3 <- beta3[stochCpG,]
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/test_per_CpG/')
+# setwd("where")
 for(i in 1:length(stochCpG))
 {
   tiff(filename = paste(stochCpG[i], 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')

@@ -76,18 +76,18 @@ process.beta.fread <- function(beta)
 
 
 # Read data
-setwd("/media/ben/DATA/Ben/1_evCpGs/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'evCpGs.txt')$V1)
 length(stochCpG) # 333
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/discovery/')
+# setwd("where")
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 tested0 = names(pvals1)
 tested = tested0[!(tested0 %in% stochCpG)]
 length(tested0) # 4652
 length(tested) # 4319
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/mQTL/')
+# setwd("where")
 control <- as.vector(read.table(file = 'control.txt')$V1)
 length(control) # 998
 
@@ -104,7 +104,7 @@ endoderm <- c('Bladder', 'Gallbladder', 'Gastricmucosa')
 
 ## QC
 # Data prep
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/tissue/')
+# setwd("where")
 raw  = fread("GSE50192_GPL13534_Matrix_signal_intensities_raw_data.txt", sep = "\t")
 dim(raw) # 485577    211
 CpGs = raw$`Sample name`
@@ -123,7 +123,7 @@ rm(detP); gc()
 ##
 
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/tissue/')
+# setwd("where")
 phenotype <- getGEO('GSE50192', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)

@@ -148,11 +148,11 @@ cell.comp.correction <- function(delta.beta, delta.cell.counts, sig.cpg, cell.co
 
 # QC
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/twins_uk/')
+# setwd("where")
 phenotype <- read.table(file = 'phenotype.txt', header = T)
 rgSet <- read.metharray.exp(getwd(), extended = T)
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/qc/TwinsUK/')
+# setwd("where")
 qc <- QCinfo(rgSet)
 bad_cpgs <- qc$badCpG
 write.table(bad_cpgs, file = 'bad_cpgs.txt', row.names = F, col.names = F, quote = F)
@@ -177,7 +177,7 @@ balloonplot(as.table(t(sex.mat)), xlab = 'Predicted', ylab = 'Registered', main 
 ######################### Pipeline ##############################
 
 # Set working directory
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/twins_uk/')
+# setwd("where")
 
 # Matching twins
 matching <- read.table(file = "twin_matching.txt", header = F)
@@ -189,7 +189,7 @@ length(Y_probes) # 416
 X_probes <- unique(as.vector(read.table(file = "x_chromosome_probes.txt", header = F)$V1))
 length(X_probes) # 11232
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/qc/TwinsUK/')
+# setwd("where")
 bad_probes <- as.vector(read.table('bad_cpgs.txt')$V1)
 
 # SNP probes - dbSNP v.147
@@ -201,7 +201,7 @@ SNP_probes <- na.omit(unique(f.SNP))
 length(SNP_probes) # 99337
 
 # CR probes
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/')
+# setwd("where")
 CR_1 <- as.vector(read.table('crossreactive_Chen.txt', header = T)$TargetID) # Chen YA et al. Epigenetics. 2013 Feb;8(2):203-9. doi: 10.4161/epi.23470. Epub 2013 Jan 11.
 kobor <- fread('GPL16304-47833.txt') # Price ME et al. Epigenetics Chromatin. 2013 Mar 3;6(1):4. doi: 10.1186/1756-8935-6-4.
 CR_2 <- unique(c(kobor$ID[kobor$Autosomal_Hits == 'A_YES'], kobor$ID[kobor$XY_Hits == 'XY_YES']))
@@ -211,7 +211,7 @@ probes2remove <- unique(c(Y_probes, X_probes, SNP_probes, CR_probes, bad_probes)
 length(probes2remove) # 138807
 
 # Read IDATs
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/twins_uk/')
+# setwd("where")
 rgSet <- read.metharray.exp(getwd())
 samples <- colnames(rgSet)
 data(FlowSorted.Blood.450k)
@@ -227,7 +227,7 @@ coldata <- colData(RGSET)
 rm(rgSet, FlowSorted.Blood.450k); gc()
 
 # Create batch vector
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/twins_uk/')
+# setwd("where")
 batch.f <- batch.freq(getwd())
 batch1 <- create.batch(batch.f)
 rm(batch.f)
@@ -297,7 +297,7 @@ rm(compData, coefs, cell.counts, cell.comp, sig.comp.cpg, std_comp, std_mat, std
 
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/TwinsUK/')
+# setwd("where")
 fwrite(data.table(beta.sqn, keep.rownames = T), paste(Sys.Date(), 'sqn_combat_cellcomp.txt', sep = '_'), quote = F, row.names = T, col.names = T, sep = '\t', nThread = 4)
 gc()
 ########## Export ###############

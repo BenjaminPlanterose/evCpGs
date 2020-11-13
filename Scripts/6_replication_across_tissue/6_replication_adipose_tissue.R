@@ -129,7 +129,7 @@ process.CpG <- function(row)
 
 # 1) Prepare matching
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 pheno = fread("E-MTAB-1866.sdrf.txt")
 pheno = as.data.frame(pheno[,c(1,6,7,8,9,10, 11, 28)])
 rownames(pheno) = pheno$`Factor Value[individual]`
@@ -157,13 +157,13 @@ for(i in 1:nrow(matching))
 }
 matching <- unique(matching)
 dim(matching) # 97  2
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 write.table(matching, "matching.txt", row.names = F, col.names = F, quote = F)
 
 
 # 2) Prepare dataset and compute IQRs
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 data = fread("MuTHER_Fat_450K_norm_AE_030913.txt", header = T)
 data = data[-1,]; gc()
 CpGs = data$`Hybridization REF`
@@ -175,19 +175,19 @@ dim(data) # 485577   648
 iqrs_whole = rowIQRs(data, na.rm = T)
 names(iqrs_whole) = CpGs
 sum(iqrs_whole > 0.07)
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 write.table(iqrs_whole, "iqrs_whole.txt", col.names = F, row.names = T, quote = F)
 data = data[, rownames(pheno)]; gc()
 dim(data) # 485577    194
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 fwrite(data.table(data, keep.rownames = T), paste(Sys.Date(), 'muther_fat_MZ.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 
 
 # 3) Prepare probes2remove
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/test/")
+# setwd("where")
 rgSet = read.metharray.exp(getwd())
 annotation = getAnnotation(rgSet)
 Y_probes = rownames(annotation)[annotation$chr == "chrY"]
@@ -199,7 +199,7 @@ f.SNP <- c(rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$Probe_maf >= 0.01
            rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$SBE_maf > 0])
 SNP_probes <- na.omit(unique(f.SNP))
 length(SNP_probes) # 99337
-setwd("/media/ben/DATA/Ben/1_evCpGs/annotation/")
+# setwd("where")
 CR_1 <- as.vector(read.table('crossreactive_Chen.txt', header = T)$TargetID) # Chen YA et al. Epigenetics. 2013 Feb;8(2):203-9. doi: 10.4161/epi.23470. Epub 2013 Jan 11.
 kobor <- fread('GPL16304-47833.txt') # Price ME et al. Epigenetics Chromatin. 2013 Mar 3;6(1):4. doi: 10.1186/1756-8935-6-4.
 CR_2 <- unique(c(kobor$ID[kobor$Autosomal_Hits == 'A_YES'], kobor$ID[kobor$XY_Hits == 'XY_YES']))
@@ -208,7 +208,7 @@ length(CR_probes) # 41993
 dataset <- fread('ICC_values.csv')
 lowICC <- as.vector(dataset$`ilmnid(CpG site)`[dataset$`ICC value` < 0.37])
 length(lowICC) # 270527
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 iqrs_whole <- read.table("iqrs_whole.txt")
 name = iqrs_whole$V1
 iqrs_whole = iqrs_whole$V2
@@ -223,7 +223,7 @@ abline(v = 0.07)
 sum(iqrs_whole > 0.07)
 
 # 4) Read and prepare data
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 data = fread("2020-04-03_muther_fat_MZ.txt"); gc()
 data = process.beta.fread(data); gc()
 data = na.omit(data); gc()
@@ -231,13 +231,13 @@ SNP_beta = data[startsWith(rownames(data), "rs"),]
 dim(SNP_beta) # 65 194
 data = data[-which(startsWith(rownames(data), "rs")),]
 dim(data) # 480320    194
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 matching = read.table("matching.txt", header = F)
 dim(matching) # 97  2
 probes2remove2 <- unique(c(Y_probes, X_probes, SNP_probes, CR_probes))
 length(probes2remove2) # 137912
 data = arrange.beta(data, matching)
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 pheno = fread("E-MTAB-1866.sdrf.txt")
 pheno = as.data.frame(pheno[,c(1,6,7,8,9,10, 11, 28)])
 rownames(pheno) = pheno$`Factor Value[individual]`
@@ -260,7 +260,7 @@ abline(v = median(twin), lty = 2)
 epsilon = median(twin); print(epsilon) # 0.04196169
 
 # Replication
-setwd("/media/ben/DATA/Ben/1_evCpGs/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'evCpGs.txt')$V1)
 cross_stoch = stochCpG[stochCpG %in% rownames(data)]
 length(cross_stoch) # 332
@@ -269,7 +269,7 @@ epsilon = 0.04196169
 pvals <- hvCpG.discovery(X, matching, epsilon); gc()
 pvals = unlist(pvals)
 
-setwd("~/Desktop/")
+# setwd("where")
 x = pvals[stochCpG]
 names(x) = stochCpG
 write.table(x, "pvals_rep.txt", col.names = T, quote = F)
@@ -282,7 +282,7 @@ sig2 = sig[!(sig %in% lowIQR)]; length(sig2) # 154
 154/333 # 46.2%
 
 # Visualize
-setwd("~/Desktop/")
+# setwd("where")
 tiff(filename = "IQR_log10pval", res = 500, width = 2.7, height = 2.7, units = "in")
 par(mar=c(2, 2, 1, 1), mgp=c(1, 0.3, 0), las=0)
 plot(iqrs_whole[cross_stoch], -log10(pvals), col = alpha("black", 0.3), pch =19, 
@@ -299,13 +299,13 @@ sum(iqrs_whole[cross_stoch] > 0.07) # 178
 sum(iqrs_whole[cross_stoch] > 0.07 & pvals > 0.05/332) # 24
 sum(iqrs_whole[cross_stoch] > 0.07 & pvals <= 0.05/332) # 154
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 write.table(x = sig2, file = "replicated.txt",row.names = F, col.names = F, quote = F)
 
 ###################################  Compare with E-risk  ###################################
 
 # Compare behaviour of E-risk markers in Adipose
-setwd('/media/ben/DATA/Ben/1_evCpGs/discovery/')
+# setwd("where")
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 tested0 = names(pvals1)
 tested = tested0[!(tested0 %in% stochCpG)]
@@ -313,7 +313,7 @@ length(tested0) # 4652
 length(tested) # 4319
 cross_tested = tested[tested %in% rownames(data)]
 length(cross_tested) # 4302
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/mQTL/')
+# setwd("where")
 control <- as.vector(read.table(file = 'control.txt')$V1)
 length(control) # 998
 cross_control = control[control %in% rownames(data)][1:length(cross_stoch)]
@@ -337,16 +337,16 @@ length(variable) #  12227
 head(annotation)
 jkl = annotation[variable, ]
 bed = data.frame(chr = jkl$chr, start = as.integer(jkl$pos), end = as.integer(jkl$pos)+1L, ID = rownames(jkl), value = 1000)
-setwd("/media/ben/DATA/Ben/1_evCpGs/tracks/450K/")
+# setwd("where")
 write.table(x = "track name=pairedReads description=Clone Paired Reads useScore=1", file = "MuTHER_deltabeta.bed", quote = F, row.names = F, col.names = F)
 fwrite(bed, "MuTHER_deltabeta.bed", quote = F, row.names = F, col.names = F, sep = "\t", append = T)
 
 # Read data
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 sig2 <- as.vector(read.table(file = 'replicated.txt', header = F)$V1); length(sig2) # 154
 jkl = annotation[sig2, ]
 bed = data.frame(chr = jkl$chr, start = as.integer(jkl$pos), end = as.integer(jkl$pos)+1L, ID = rownames(jkl), value = 1000)
-setwd("/media/ben/DATA/Ben/1_evCpGs/tracks/")
+# setwd("where")
 write.table(x = "track name=pairedReads description=Clone Paired Reads useScore=1", file = "replicated.bed", quote = F, row.names = F, col.names = F)
 fwrite(bed, "replicated.bed", quote = F, row.names = F, col.names = F, sep = "\t", append = T)
 
@@ -354,7 +354,7 @@ fwrite(bed, "replicated.bed", quote = F, row.names = F, col.names = F, sep = "\t
 
 
 # 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/erisk/")
+# setwd("where")
 erisk_bad_qc = as.vector(read.table("bad_cpgs.txt", header = F)$V1)
 bg0 = rownames(annotation)[!(rownames(annotation) %in% c(X_probes, Y_probes, CR_probes, SNP_probes, erisk_bad_qc))]
 length(bg0) # 346555
@@ -396,7 +396,7 @@ GOterms <- gometh(sig.cpg = sig2, all.cpg = bg02, collection = 'GO', array.type 
                   plot.bias = T, prior.prob = T)
 sum(GOterms$FDR < 0.05)
 GOterms <- GOterms[order(GOterms$FDR, decreasing = F),]
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/GO/")
+# setwd("where")
 ev = as.data.frame(fread("GO_ev.txt", header = T, sep = ",", fill = T)[1:19])
 replic = fread("GO_replicated.txt", header = T, sep = ",", fill = T)
 replic = as.data.frame(replic[replic$Term %in% ev$Term,])
@@ -404,7 +404,7 @@ GOmat = cbind(ev[, c(1,2,6,7)], replic[match(replic$Term, ev$Term), c(6,7)])
 ev_fdr = -log10(GOmat[,4])
 rep_fdr = -log10(GOmat[,6])
 #
-setwd("~/Desktop/")
+# setwd("where")
 tiff(filename = "GO.tiff", width = 4, height = 8, units = "in", res = 300)
 par(mar=c(2, 8, 0, 0.5), mgp=c(3, 1, 0), las=0)
 barplot(rbind(rep_fdr[length(rep_fdr):1], ev_fdr[length(ev_fdr):1]), horiz = T, names.arg = rev(GOmat$Ont), las = 1,

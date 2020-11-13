@@ -75,37 +75,37 @@ concordance_range_plot <- function(hvCpG, beta, main, lab_range)
 #############################################   Visualize stochCpGs epigenome wide   #############################################
 
 # Read data
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'stochCpG.txt')$V1)
 sig = stochCpG
 
 # E-risk
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/E_risk/')
+# setwd("where")
 beta1 <- fread('2019-08-21_SQN_combat_cellcomp.txt', nThread = 4)
 beta1 <- process.beta.fread(beta1); dim(beta1) # 346555    852
-setwd("/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/young_external_validation")
+# setwd("where")
 matching_Erisk <- read.table(file = 'matching_MZ.txt', header = T)
 beta1 <- arrange.beta(beta1, matching_Erisk)
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('hexbin_twinsuk', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 concordance_range_plot(sig, beta1, 'E-risk', c(0.23,0.93))
 dev.off()
 
 # TwinsUK
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/TwinsUK/')
+# setwd("where")
 TwinsUK <- fread('2019-09-09_sqn_combat_cellcomp.txt', nThread = 4)
 TwinsUK <- process.beta.fread(TwinsUK)
 dim(TwinsUK) # 346705    656
 matching_UK <- read.table('twin_matching.txt', header = F)
 TwinsUK <- arrange.beta(TwinsUK, matching_UK)
 dim(TwinsUK) # 346705    656
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('hexbin_twinsuk', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 concordance_range_plot(sig, TwinsUK, 'TwinsUK', c(0.4,0.95))
 dev.off()
 
 # Danish Cohort
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/Danish_cohort/')
+# setwd("where")
 danish <- fread('2019-09-09_sqn_combat_cellcomp.txt')
 danish <- process.beta.fread(danish)
 replicates_excluded <- c('GSM1506278', 'GSM1506587',
@@ -118,7 +118,7 @@ matching_danish <- read.table('matching_danish.txt', header = T)
 danish <- arrange.beta(danish, matching_danish)
 dim(danish) # 345757    292
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('hexbin_danish', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 concordance_range_plot(sig, danish, 'Danish Twin Registry', c(0.3,0.95))
 dev.off()

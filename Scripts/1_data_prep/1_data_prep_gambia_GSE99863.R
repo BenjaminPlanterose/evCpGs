@@ -145,7 +145,7 @@ Sex <- getSex(sqn)
 plotSex(Sex)
 
 # Read phenotypes
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/gambia/GSE99863_RAW/')
+# setwd("where")
 phenotype <- getGEO('GSE99863', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -167,7 +167,7 @@ balloonplot(as.table(t(sex.mat)), xlab = 'Predicted', ylab = 'Registered', main 
 #############################################   Preparation   #############################################
 
 # Read IDATS
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/gambia/GSE99863_RAW/')
+# setwd("where")
 rgSet <- read.metharray.exp(getwd(), extended = F); gc()
 
 # Bad QC - Obtained via QCinfo function from ENmix r-package (detPthre=0.000001, nbthre=3, samplethre=0.05, CpGthre=0.05, bisulthre=NULL, outlier=TRUE)
@@ -175,7 +175,7 @@ bad_probes <- unique(as.vector(read.table(file = "bad_cpgs.txt", header = F)$V1)
 length(bad_probes) # 3807
 
 # Probes to remove
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/')
+# setwd("where")
 # Read CpGs to remove
 # XY-probes
 Y_probes <- unique(as.vector(read.table(file = "y_chromosome_probes.txt", header = F)$V1))
@@ -287,7 +287,7 @@ rm(compData, coefs, cell.counts, cell.comp, sig.comp.cpg, std_comp, std_mat, std
 dim(beta.sqn) # 346099    852
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/Gambia/')
+# setwd("where")
 fwrite(data.table(beta.sqn, keep.rownames = T), paste(Sys.Date(), 'SQN_combat_cellcomp_Gambia.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############

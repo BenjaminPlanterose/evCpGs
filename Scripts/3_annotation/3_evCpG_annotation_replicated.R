@@ -43,7 +43,7 @@ process.beta.fread <- function(beta)
 functional.annotation.hg19 <- function(hvCpGs)
 {
   old.dir <- getwd()
-  setwd('/media/ben/DATA/Ben/1_evCpGs/data/test/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   names <- rownames(annotation)
@@ -120,7 +120,7 @@ functional.annotation.hg19 <- function(hvCpGs)
 functional.annotation.hg38 <- function(hvCpGs)
 {
   old.dir <- getwd()
-  setwd('/media/ben/DATA/Ben/1_evCpGs/data/test/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   annotation2 <- PAMES::illumina450k_hg38
@@ -195,12 +195,12 @@ functional.annotation.hg38 <- function(hvCpGs)
 # Custom deep annotation based on UCSC refGene (hg19). Include intron/exon information
 functional.annotation.deep <- function(hvCpG, d)
 {
-  setwd('/media/ben/DATA/Ben/1_evCpGs/data/test/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   annotation <- as.data.frame(annotation[hvCpG, 1:3])
   
-  setwd('/media/ben/DATA/Ben/1_evCpGs/annotation/')
+  # setwd("where")
   annot <- fread('refGene.txt')
   
   annotated1 <- annot.within(annotation, annot)
@@ -580,7 +580,7 @@ positional_enrichment_analysis <- function(target, bg, window)
 {
   # Extract annotation
   old.dir <- getwd()
-  setwd('/media/ben/DATA/Ben/1_evCpGs/data/test/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   setwd(old.dir)
@@ -645,32 +645,32 @@ enrichment_pergene <- function(target, bg, key)
 #############################################   Annotation   #############################################
 
 # Read data
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'replicated.txt', header = F)$V1); length(stochCpG) # 154
 sig = stochCpG
 
 # Illumina annotation (hg19)
 annotation <- functional.annotation.hg19(stochCpG)
 annotation <- annotation[order(annotation$chr, annotation$pos),]
-setwd('~/Desktop')
+# setwd("where"))
 write.table(file = 'annot.txt', annotation, row.names = T, col.names = T, sep = '\t', quote = F)
 
 # PAMES annotation (hg38)
 annotation2 <- functional.annotation.hg38(stochCpG)
 annotation2 <- annotation2[order(annotation2$chr, annotation2$pos),]
-setwd('~/Desktop')
+# setwd("where")
 write.table(file = 'annot2.txt', annotation2, row.names = T, col.names = T, sep = '\t', quote = F)
 
 # Deep annotation (hg19)
 annotation3 <- functional.annotation.deep(stochCpG, 1500)
 annotation3 <- annotation3[order(annotation3$chr, annotation3$`pos CpG`),]
-setwd('~/Desktop')
+# setwd("where")
 write.table(file = 'annot3.txt', annotation3, row.names = T, col.names = T, sep = '\t', quote = F)
 
 #############################################   Enrichment   #############################################
 
 # Read whole annotation
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/test/')
+# setwd("where")
 RGSET <- read.metharray.exp(getwd())
 complete_annot <- getAnnotation(RGSET)
 annotation <- functional.annotation.hg19(stochCpG)
@@ -685,7 +685,7 @@ f.SNP <- c(rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$Probe_maf >= 0.01
            rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$SBE_maf > 0])
 SNP_probes <- na.omit(unique(f.SNP)); length(SNP_probes) # 99337
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/annotation/")
+# setwd("where")
 CR_1 <- as.vector(read.table('crossreactive_Chen.txt', header = F)$TargetID) # Chen YA et al. Epigenetics. 2013 Feb;8(2):203-9. doi: 10.4161/epi.23470. Epub 2013 Jan 11.
 kobor <- fread('GPL16304-47833.txt') # Price ME et al. Epigenetics Chromatin. 2013 Mar 3;6(1):4. doi: 10.1186/1756-8935-6-4.
 CR_2 <- unique(c(kobor$ID[kobor$Autosomal_Hits == 'A_YES'], kobor$ID[kobor$XY_Hits == 'XY_YES']))
@@ -703,7 +703,7 @@ bg_complete = rownames(complete_annot)
 
 
 # Read imprinted genes, from http://www.geneimprint.com/site/genes-by-species
-setwd('/media/ben/DATA/Ben/1_evCpGs/annotation/')
+# setwd("where")
 imprinted <- fread('IMPRINTED')
 # Any alias will do. Combine all into a single vector
 imprinted_genes <- unique(c(imprinted$Gene, unlist(strsplit(imprinted$Aliases, split = ', '))))
@@ -745,7 +745,7 @@ fisher.test(mat)
 
 
 # Metastable epialleles
-setwd("/media/ben/DATA/Ben/1_evCpGs/annotation/")
+# setwd("where")
 metastable <- as.vector(read.table('metastable', header = F)$V1) # Harris, RA et al (2013) Epigenetics. 2013 Feb 1; 8(2): 157–163. 
 
 venn(list(sig, metastable)) # 4 CpGs
@@ -780,7 +780,7 @@ fisher.test(mat)
 
 #############################################   EWAS trait association   #############################################
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/annotation/") # https://bigd.big.ac.cn/ewas/index
+# setwd("where") # https://bigd.big.ac.cn/ewas/index
 #assoc <- fread('association.tsv', sep = '\t'); dim(assoc) # 416331      8
 assoc <- fread('association.tsv', sep = '\t'); dim(assoc) # 534437      11
 head(assoc)
@@ -836,7 +836,7 @@ barplot((OR[pval.adj < 0.05])[order(-log10(pval.adj[pval.adj < 0.05]))], horiz =
 #############################################   RNA expression   #############################################
 
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/annotation/')
+# setwd("where")
 genes <- unique(unlist(strsplit(as.vector(annotation$UCSC.name), split = ';')))
 length(genes) # 121
 
@@ -847,7 +847,7 @@ dim(gene_expression) # 110 55
 X <- melt(gene_expression)
 X$value <- log2(X$value + 1)
 
-setwd('~/Desktop/')
+# setwd("where")
 tiff(filename = paste('RNA', 'tiff', sep = '.'), width = 8, height = 10, units = 'in', res = 300, compression = 'none')
 ggplot(X, aes(variable, Description, fill= value)) + 
   geom_tile() + scale_fill_gradient(low="white", high="blue") +
@@ -949,7 +949,7 @@ balloonplot(as.table(mat1), main = '', ylab = 'Functional Status', xlab = 'Set')
 
 #############################################   ChromHMM enrichment analysis   #############################################
 
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2019/HMM_annot/PBMC/')
+# setwd("where")
 full = fread('PBMC_15stat_annot.txt')
 full = as.data.frame(full)
 CpGs = full$CpG
@@ -1054,14 +1054,14 @@ complete_annot[names(which(pos_enrich_res < 0.05)),]$UCSC_RefGene_Name
 
 a <- as.data.frame(annotation[names(which(pos_enrich_res < 0.05)),])
 a$pval <- pvals_enrich[rownames(a)]
-# setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/supp/')
-# write.table(x = a, file = 'regions_1kb_positional_enrichment.txt', quote = F, sep = '\t')
+# setwd("where")
+write.table(x = a, file = 'regions_1kb_positional_enrichment.txt', quote = F, sep = '\t')
 
 
 # 1 Mb
 pvals_enrich <- positional_enrichment_analysis(sig, bg, 10^6)
 pos_enrich_res <- p.adjust(pvals_enrich, 'bonferroni')
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/supp/')
+# setwd("where")
 complete_annot[names(which(pos_enrich_res < 0.05)),]$UCSC_RefGene_Name
 # [1] "VTRNA1-3"                                                                                                    
 # [2] "PCDHA2;PCDHA1;PCDHA1;PCDHA2;PCDHA2"                                                                          

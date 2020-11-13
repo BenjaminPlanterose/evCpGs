@@ -120,7 +120,7 @@ cell.comp.correction <- function(delta.beta, delta.cell.counts, sig.cpg, cell.co
 #############################################   QC   #############################################
 
 # Read pheno
-setwd('/media/ultron/2tb_disk2/ben/population_study/GSE87571_RAW')
+# setwd("where")
 phenotype <- getGEO('GSE87571', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -166,7 +166,7 @@ balloonplot(as.table(t(sex.mat)), xlab = 'Predicted', ylab = 'Registered', main 
 #############################################   Preparation   #############################################
 
 # Probes to remove
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/')
+# setwd("where")
 # Read CpGs to remove
 # XY-probes
 Y_probes <- unique(as.vector(read.table(file = "y_chromosome_probes.txt", header = F)$V1))
@@ -175,7 +175,7 @@ X_probes <- unique(as.vector(read.table(file = "x_chromosome_probes.txt", header
 length(X_probes) # 11232
 
 # Bad QC - Obtained via QCinfo function from ENmix r-package (detPthre=0.000001, nbthre=3, samplethre=0.05, CpGthre=0.05, bisulthre=NULL, outlier=TRUE)
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/qc/Population/')
+# setwd("where")
 bad_probes <- unique(as.vector(read.table(file = "bad_probes.txt", header = F)$V1))
 length(bad_probes) # 2843
 
@@ -188,7 +188,7 @@ SNP_probes <- na.omit(unique(f.SNP))
 length(SNP_probes) # 99337
 
 # CR probes
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/')
+# setwd("where")
 CR_1 <- as.vector(read.table('crossreactive_Chen.txt', header = T)$TargetID) # Chen YA et al. Epigenetics. 2013 Feb;8(2):203-9. doi: 10.4161/epi.23470. Epub 2013 Jan 11.
 kobor <- fread('GPL16304-47833.txt') # Price ME et al. Epigenetics Chromatin. 2013 Mar 3;6(1):4. doi: 10.1186/1756-8935-6-4.
 CR_2 <- unique(c(kobor$ID[kobor$Autosomal_Hits == 'A_YES'], kobor$ID[kobor$XY_Hits == 'XY_YES']))
@@ -198,7 +198,7 @@ probes2remove <- unique(c(Y_probes, X_probes, SNP_probes, CR_probes, bad_probes)
 length(probes2remove) # 139043
 
 # Read IDAT
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/population_study/GSE87571_RAW/')
+# setwd("where")
 rgSet <- read.metharray.exp(getwd())
 
 # Prepare batch
@@ -287,7 +287,7 @@ dim(beta.sqn) # 346469    727
 
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/Population/')
+# setwd("where")
 fwrite(data.table(beta.sqn, keep.rownames = T), paste(Sys.Date(), 'SQN_combat_cellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############

@@ -162,9 +162,8 @@ dasen_modified <- function(rgSet, fudge)
 ## Obtaining phenotypes ##
 
 # Extracting phenotypes
-setwd("/media/ben/DATA/Ben/3_genetic_artefacts/data/erisk/")
+# setwd("where")
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/young_external_validation/')
 phenotype <- getGEO('GSE105018', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -182,21 +181,17 @@ write.table(file = 'script.sh', x = paste('mv ', rownames(MZ), '*', ' ./MZ/', se
 ## Technical QC ##
 
 # Read IDAT in extended format (included nBead, detP and sdGreen/Red)
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/young_external_validation/')
+# setwd("where")
 rgSet <- read.metharray.exp(getwd(), extended = T)
 
-
-
-
-
 # Perform QC
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/qc/')
+# setwd("where")
 qc <- QCinfo(rgSet)
 bad_cpgs <- qc$badCpG
 write.table(bad_cpgs, file = 'bad_cpgs.txt', row.names = F, col.names = F, quote = F)
 
 # Export nBead/detP
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/qc/')
+# setwd("where")
 fwrite(data.table(qc$detP, keep.rownames = T), paste(Sys.Date(), 'detP.txt', sep = '_'), 
        quote = F, row.names = T, col.names = T, sep = '\t', nThread = 4)
 fwrite(data.table(qc$nbead, keep.rownames = T), paste(Sys.Date(), 'nBead.txt', sep = '_'), 
@@ -230,7 +225,7 @@ balloonplot(as.table(t(sex.mat)), xlab = 'Predicted', ylab = 'Registered', main 
 #############################################   Data Preparation   #############################################
 
 # Read IDATS
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/young_external_validation/')
+# setwd("where")
 rgSet <- read.metharray.exp(getwd(), extended = F); gc()
 
 # Extract GEO IDs
@@ -256,7 +251,7 @@ colnames(matching) <- c('V1', 'V2')
 head(matching)
 
 # Prepare probes to remove
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/')
+# setwd("where")
 # XY-probes
 Y_probes <- unique(as.vector(read.table(file = "y_chromosome_probes.txt", header = F)$V1))
 length(Y_probes) # 416
@@ -333,7 +328,7 @@ nocombat.beta.sqn_cell <- nocombat.beta.sqn[,sample2]
 nocombat.beta.sqn <- nocombat.beta.sqn[, sample1]
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(nocombat.beta.sqn, keep.rownames = T), paste(Sys.Date(), 'SQN_nocombat_nocellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -358,7 +353,7 @@ rm(df) ; gc()
 combat.beta.sqn <- sva::ComBat(dat=na.omit(nocombat.beta.sqn), batch=batch, mod=modcombat, par.prior=TRUE, prior.plots=F)
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(combat.beta.sqn, keep.rownames = T), paste(Sys.Date(), 'SQN_combat_nocellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -371,7 +366,7 @@ compData <- pickCompProbes_modified(coldata, cbind(combat.beta.sqn, nocombat.bet
                                     probeSelect = 'both', numProbes = 50)
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(compData$compTable, keep.rownames = T), paste(Sys.Date(), 'SQN_combat_comptable.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -395,7 +390,7 @@ dim(beta.sqn) # 346555    852
 
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(beta.sqn, keep.rownames = T), paste(Sys.Date(), 'SQN_combat_cellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -417,7 +412,7 @@ nocombat.beta.dasen_cell <- nocombat.beta.dasen[,sample2]
 nocombat.beta.dasen <- nocombat.beta.dasen[, sample1]
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(nocombat.beta.dasen, keep.rownames = T), paste(Sys.Date(), 'dasen_nocombat_nocellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -431,7 +426,7 @@ modcombat <- model.matrix( ~ as.factor(gender), data=df); rm(df) ; gc()
 combat.beta.dasen <- sva::ComBat(dat=na.omit(nocombat.beta.dasen), batch=batch, mod=modcombat, 
                                  par.prior=TRUE, prior.plots=F)
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(combat.beta.dasen, keep.rownames = T), paste(Sys.Date(), 'dasen_combat_nocellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -445,7 +440,7 @@ compData <- pickCompProbes_modified(coldata, cbind(combat.beta.dasen, nocombat.b
                                     cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Gran"), compositeCellType = 'Blood', 
                                     probeSelect = 'both', numProbes = 50)
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(compData$compTable, keep.rownames = T), paste(Sys.Date(), 'dasen_combat_comptable.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -466,7 +461,7 @@ beta.dasen <- cell.comp.correction(combat.beta.dasen, std.delta.cell.counts, sig
 
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(beta.dasen, keep.rownames = T), paste(Sys.Date(), 'dasen_combat_cellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -489,7 +484,7 @@ nocombat.beta.bmiq_cell <- nocombat.beta.bmiq[,sample2]
 nocombat.beta.bmiq <- nocombat.beta.bmiq[, sample1]
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(nocombat.beta.bmiq, keep.rownames = T), paste(Sys.Date(), 'oobrelicbmiqqn_nocombat_nocellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -506,7 +501,7 @@ combat.beta.bmiq <- sva::ComBat(dat=na.omit(nocombat.beta.bmiq), batch=batch, mo
 rm(nocombat.beta.bmiq) ; gc()
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(combat.beta.bmiq, keep.rownames = T), paste(Sys.Date(), 'oobrelicbmiqqn_combat_nocellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -517,7 +512,7 @@ compData <- pickCompProbes_modified(coldata, cbind(combat.beta.bmiq, nocombat.be
                                     cellTypes = c("CD8T", "CD4T", "NK", "Bcell", "Mono", "Gran"), compositeCellType = 'Blood', 
                                     probeSelect = 'both', numProbes = 50)
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(compData$compTable, keep.rownames = T), paste(Sys.Date(), 'oborelicbmiqqn_combat_comptable.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -540,7 +535,7 @@ rm(nocombat.beta.bmiq_cell) ; gc()
 
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(beta.bmiq, keep.rownames = T), paste(Sys.Date(), 'oobrelicbmiqqn_combat_cellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############
@@ -557,7 +552,7 @@ nocombat.beta.raw <- nocombat.beta.raw*nocombat.CN.raw/(nocombat.CN.raw+100)
 rm(nocombat.CN.raw, um.raw) ; gc()
 
 ########## Export ###############
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/')
+# setwd("where")
 fwrite(data.table(nocombat.beta.raw, keep.rownames = T), paste(Sys.Date(), 'raw.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############

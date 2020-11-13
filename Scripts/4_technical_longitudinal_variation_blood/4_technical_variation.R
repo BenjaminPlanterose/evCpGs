@@ -100,23 +100,23 @@ plot.arrow.field <- function(c_r_rep, c_r_twin, xlim, ylim)
 #############################################   Technical noise on E-risk - nBead, detP and ICC   #############################################
 
 # Read data
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'stochCpG.txt')$V1)
 sig = stochCpG
 
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/qc/erisk/')
+# setwd("where")
 nBead <- fread(input = '2019-09-04_nBead.txt')
 nBead <- process.beta.fread(nBead); dim(nBead) # 485512    852
 
 detP <- fread(input = '2019-09-04_detP.txt')
 detP <- process.beta.fread(detP); dim(detP) # 485512    852
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 bg = names(pvals1)
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'stochCpG.txt')$V1)
 sig = stochCpG
 nosig = bg[!(bg %in% sig)]
@@ -139,7 +139,7 @@ hist(y, col = alpha('blue3', 0.5), breaks = max(ncol(detP)*y), add = T, freq = F
 a$p.value # 4.232592e-54
 
 # ICC
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/ICC_replicates/') # Bose M et al. BMC Bioinformatics. 2014; 15(1): 312. 
+# setwd("where")
 dataset <- fread('ICC_values.csv')
 dataset <- dataset[, c(1,4)]
 dataset <- as.data.frame(dataset)
@@ -161,7 +161,7 @@ data_summary <- function(x)
   return(c(y=m,ymin=ymin,ymax=ymax))
 }
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('ICC', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 ggplot(dataset, aes(x=Group, y=ICC, fill=Group)) + geom_violin() + scale_fill_manual(values=c("#999999", "#E69F00", "#56B4E9")) +
   stat_summary(fun.data=data_summary) + labs(title="ICC Distribution",x="Group", y = "ICC") +
@@ -171,7 +171,7 @@ dev.off()
 
 #############################################   Technical noise on E-risk - per-stage noise assessment   #############################################
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/E_risk/')
+# setwd("where")
 matching <- read.table(file = 'matching_MZ.txt', header = T)
 
 raw <- fread('2019-08-22_raw.txt')
@@ -265,7 +265,7 @@ rm(bmiq3, delta.bmiq3); gc()
 
 
 # Danish
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/Danish_cohort/')
+# setwd("where")
 danish <- fread('2019-09-09_sqn_combat_cellcomp.txt')
 danish <- process.beta.fread(danish)
 dim(danish) # 345757    302
@@ -297,7 +297,7 @@ dim(delta.rep) # 329  16
 dim(delta.twin) #329 146
 
 # Kolmogorov-Smirnov test + ecdf plot
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('technical_KS', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 pval_KS <- ks.test(as.numeric(delta.rep), as.numeric(delta.twin), alternative = 'greater')$p.value
 plot(ecdf(delta.twin), col = 'firebrick3', main = paste('-log10(p-val_KS) =', round(-log10(pval_KS), 4), '\n',  length(cross_sig), 'out of', length(sig), 'stochCpGs', sep = ' '),
@@ -314,7 +314,7 @@ dev.off()
 IQR_MAE_rep <- concordance_range(sig, Replicates)
 IQR_MAE_twin <- concordance_range(sig, Twins)
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('technical_vector', 'tiff', sep = '.'), width = 10, height = 10, units = 'in', res = 300, compression = 'none')
 res <- plot.arrow.field(IQR_MAE_rep, IQR_MAE_twin, c(0,0.7), c(0.4,1))
 sapply(res, length) # 50 259   4  16
@@ -338,11 +338,11 @@ process.beta.fread <- function(beta)
 
 # Danish
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/discovery/')
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'stochCpG.txt')$V1)
 sig = stochCpG
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/mQTL/')
+# setwd("where")
 # mQTL <- fread('F7.ALL.M.tab'); dim(mQTL) # 9902081       6
 # mQTL <- mQTL[order(mQTL$FDR),]
 # fdr_order = unique(mQTL$gene)
@@ -355,7 +355,7 @@ control <- as.vector(read.table(file = 'control.txt')$V1)
 length(control) # 998
 
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/beta/Danish_cohort/')
+# setwd("where")
 danish <- fread('2019-09-09_sqn_combat_cellcomp.txt')
 danish <- process.beta.fread(danish)
 dim(danish) # 345757    302

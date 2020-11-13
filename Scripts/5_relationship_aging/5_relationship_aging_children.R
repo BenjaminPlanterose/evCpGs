@@ -77,7 +77,7 @@ create.manhattan.plot <- function(pvals, hvCpG, main, alpha_corrected)
   # Extract annotation. The easiest way to do so, strangely, is to create a directory with 
   # a single sample IDAT (both channels). Read the IDAT and extract the annotation with
   # minfi functions.
-  old.dir <- getwd(); setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+  old.dir <- getwd(); # setwd("where")
   RGSET <- read.metharray.exp(getwd()); setwd(old.dir)
   
   annotation <- getAnnotation(RGSET)
@@ -161,17 +161,17 @@ var_across_age <- function(x, age, bin.span, offset)
 #############################################   Read data/phenotypes   #############################################
 
 # Read evCpGs
-setwd("/media/ben/DATA/Ben/1_evCpGs/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'evCpGs.txt')$V1)
 length(stochCpG) # 333
 
 ##### Population datasets ####
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/')
+# setwd("where")
 beta.sqn = fread("2020-04-17_SQN_nocombat_cellcomp.txt")
 beta.sqn = process.beta.fread(beta.sqn)
 
 # Children
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/')
+# setwd("where")
 phenotype <- getGEO('GSE104812', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -253,7 +253,7 @@ table(colours)/length(colours)
 
 #############################################   Comparing heteroscedasticity and association   #############################################
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/')
+# setwd("where")
 tiff(filename = paste('pvals_age_heteroscedasticity', 'tiff', sep = '.'), width = 2.23, height = 2.23, units = 'in', res = 300, compression = 'none')
 par(mar=c(1, 1, 1, 1), mgp=c(1, 0.015, 0), las=0)
 plot(x, y, pch = 19, xlab = '-log10(p-val) (Age Heteroscedasticity)',

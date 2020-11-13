@@ -121,7 +121,7 @@ cell.comp.correction <- function(delta.beta, delta.cell.counts, sig.cpg, cell.co
 #############################################   QC   #############################################
 
 # Read pheno
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/')
+# setwd("where")
 phenotype <- getGEO('GSE104812', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -132,7 +132,7 @@ pheno$age = as.numeric(pheno$age)
 pheno$sex = as.factor(pheno$sex)
 
 # Bad Samples/probes
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/')
+# setwd("where")
 rgSet <- read.metharray.exp(getwd(), extended = T)
 qc <- ENmix::QCinfo(rgSet)
 qc$badsample # character(0)
@@ -147,7 +147,7 @@ qc_df = data.frame(badFreq = badValuePerSample, bisul = qc$bisul)
 thr = mean(qc_df$bisul) - 3*sd(qc_df$bisul)
 dim(qc_df) # 48 2
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/QC/')
+# setwd("where")
 tiff(filename = "children_aging.tiff", height = 427, width = 550, units = "px")
 plot(qc_df$badFreq, qc_df$bisul, ylim = c(0, 35000), xlim = c(0, 0.055), pch = 19, col = alpha("black", 0.2), cex = 0.4,
      xlab = "Percent of low-quality data", ylab = "Average bisulfite conversion intensity", main = "Children population", las = 1, cex.axis = 0.8)
@@ -160,7 +160,7 @@ dev.off()
 sqn <- preprocessQuantile(rgSet)
 Sex <- getSex(sqn)
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/QC/')
+# setwd("where")
 tiff(filename = "sex1_children_aging.tiff", height = 762, width = 656, units = "px")
 plot(x = Sex$xMed, y = Sex$yMed, type = "n", xlab = "X chr, median total intensity (log2)", 
      ylab = "Y chr, median total intensity (log2)")
@@ -186,7 +186,7 @@ sex.mat <- table(Sex$predictedSex, pheno$sex)
 # M   0 29
 
 # Perform balloon plot
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/QC/')
+# setwd("where")
 tiff(filename = "sex2_children_aging.tiff", height = 762, width = 656, units = "px")
 balloonplot(as.table(t(sex.mat)), xlab = 'Predicted', ylab = 'Registered', main = '')
 dev.off()
@@ -197,7 +197,7 @@ dev.off()
 
 
 # Read pheno
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/')
+# setwd("where")
 phenotype <- getGEO('GSE104812', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -215,19 +215,19 @@ f.SNP <- c(rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$Probe_maf >= 0.01
            rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$SBE_maf > 0])
 SNP_probes <- na.omit(unique(f.SNP))
 length(SNP_probes) # 99337
-setwd("/media/ben/DATA/Ben/1_evCpGs/annotation/")
+# setwd("where")
 CR_1 <- as.vector(read.table('crossreactive_Chen.txt', header = F)$TargetID) # Chen YA et al. Epigenetics. 2013 Feb;8(2):203-9. doi: 10.4161/epi.23470. Epub 2013 Jan 11.
 kobor <- fread('GPL16304-47833.txt') # Price ME et al. Epigenetics Chromatin. 2013 Mar 3;6(1):4. doi: 10.1186/1756-8935-6-4.
 CR_2 <- unique(c(kobor$ID[kobor$Autosomal_Hits == 'A_YES'], kobor$ID[kobor$XY_Hits == 'XY_YES']))
 CR_probes <- unique(c(CR_1, CR_2))
 length(CR_probes) # 41937
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/QC/')
+# setwd("where")
 bad_probes = as.vector(read.table("bad_probes.txt", header = F)$V1)
 length(bad_probes) # 
 
 # Read IDAT
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/GSE104812_RAW/')
+# setwd("where")
 rgSet <- read.metharray.exp(getwd())
 
 annotation = getAnnotation(rgSet)
@@ -294,7 +294,7 @@ rm(compData, coefs, cell.counts, cell.comp, sig.comp.cpg, std_comp, std_mat, std
 
 
 ########## Export ###############
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/aging_children/')
+# setwd("where")
 fwrite(data.table(beta.sqn, keep.rownames = T), paste(Sys.Date(), 'SQN_nocombat_cellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############

@@ -44,7 +44,7 @@ process.beta.fread <- function(beta)
 functional.annotation.hg19 <- function(hvCpGs)
 {
   old.dir <- getwd()
-  setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   names <- rownames(annotation)
@@ -121,7 +121,7 @@ functional.annotation.hg19 <- function(hvCpGs)
 functional.annotation.hg38 <- function(hvCpGs)
 {
   old.dir <- getwd()
-  setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   annotation2 <- PAMES::illumina450k_hg38
@@ -196,12 +196,12 @@ functional.annotation.hg38 <- function(hvCpGs)
 # Custom deep annotation based on UCSC refGene (hg19). Include intron/exon information
 functional.annotation.deep <- function(hvCpG, d)
 {
-  setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   annotation <- as.data.frame(annotation[hvCpG, 1:3])
   
-  setwd('/media/ultron/2tb_disk2/ANNOTATIONS/igv_annot/hg19.genome_FILES/')
+  # setwd("where")
   annot <- fread('refGene.txt')
   
   annotated1 <- annot.within(annotation, annot)
@@ -581,7 +581,7 @@ positional_enrichment_analysis <- function(target, bg, window)
 {
   # Extract annotation
   old.dir <- getwd()
-  setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+  # setwd("where")
   RGSET <- read.metharray.exp(getwd())
   annotation <- getAnnotation(RGSET)
   setwd(old.dir)
@@ -646,36 +646,36 @@ enrichment_pergene <- function(target, bg, key)
 #############################################   Annotation   #############################################
 
 # Read data
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'stochCpG.txt')$V1)
 sig = stochCpG
 
 # Illumina annotation (hg19)
 annotation <- functional.annotation.hg19(stochCpG)
-setwd('~/Desktop')
+# setwd("where")
 write.table(file = 'annot.txt', annotation, row.names = T, col.names = T, sep = '\t', quote = F)
 
 # PAMES annotation (hg38)
 annotation2 <- functional.annotation.hg38(stochCpG)
-setwd('~/Desktop')
+# setwd("where")
 write.table(file = 'annot2.txt', annotation2, row.names = T, col.names = T, sep = '\t', quote = F)
 
 # Deep annotation (hg19)
 annotation3 <- functional.annotation.deep(stochCpG, 1500)
-setwd('~/Desktop')
+# setwd("where")
 write.table(file = 'annot3.txt', annotation3, row.names = T, col.names = T, sep = '\t', quote = F)
 
 #############################################   Enrichment   #############################################
 
 # Read whole annotation
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/temp/test1/')
+# setwd("where")
 RGSET <- read.metharray.exp(getwd())
 complete_annot <- getAnnotation(RGSET)
 annotation <- functional.annotation.hg19(stochCpG)
 
 
 # Read raw data (all three normalisations)
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/E_risk/')
+# setwd("where")
 beta1 <- fread('2019-08-21_SQN_combat_cellcomp.txt', nThread = 4)
 beta1 <- process.beta.fread(beta1); dim(beta1) # 346555    852
 bg0 = rownames(beta1)
@@ -688,7 +688,7 @@ bg_complete = rownames(complete_annot)
 
 
 # Read imprinted genes, from http://www.geneimprint.com/site/genes-by-species
-setwd('/media/ultron/2tb_disk2/ANNOTATIONS/')
+# setwd("where")
 imprinted <- fread('IMPRINTED')
 # Any alias will do. Combine all into a single vector
 imprinted_genes <- unique(c(imprinted$Gene, unlist(strsplit(imprinted$Aliases, split = ', '))))
@@ -730,7 +730,7 @@ fisher.test(mat)
 
 
 # Metastable epialleles
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/metastable/')
+# setwd("where")
 metastable <- as.vector(read.table('metastable2.txt', header = F)$V1) # Harris, RA et al (2013) Epigenetics. 2013 Feb 1; 8(2): 157–163. 
 
 venn(list(sig, metastable)) # 11 CpGs
@@ -775,7 +775,7 @@ fisher.test(mat)
 #############################################   EWAS trait association   #############################################
 
 
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/EWAS atlas/') # https://bigd.big.ac.cn/ewas/index
+# setwd("where") # https://bigd.big.ac.cn/ewas/index
 assoc <- fread('EWAS_Atlas_associations.tsv', sep = '\t'); dim(assoc) # 416331      8
 assoc <- as.data.frame(assoc)
 dim(assoc) # 416331     11
@@ -965,7 +965,7 @@ barplot((OR[pval.adj < 0.05])[order(-log10(pval.adj[pval.adj < 0.05]))], horiz =
 
 #############################################   RNA expression   #############################################
 
-setwd('/media/ultron/2tb_disk2/chr5_BED/')
+# setwd("where")
 
 genes <- unique(unlist(strsplit(as.vector(annotation$UCSC.name), split = ';')))
 length(genes) # 264
@@ -977,7 +977,7 @@ dim(gene_expression) # 247 55
 X <- melt(gene_expression)
 X$value <- log2(X$value + 1)
 
-setwd('~/Desktop/')
+# setwd("where")
 tiff(filename = paste('RNA', 'tiff', sep = '.'), width = 8, height = 10, units = 'in', res = 300, compression = 'none')
 ggplot(X, aes(variable, Description, fill= value)) + 
   geom_tile() + scale_fill_gradient(low="white", high="blue") +
@@ -1075,7 +1075,7 @@ balloonplot(as.table(mat1), main = '', ylab = 'Functional Status', xlab = 'Set')
 
 #############################################   ChromHMM enrichment analysis   #############################################
 
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2019/HMM_annot/PBMC/')
+# setwd("where")
 full = fread('PBMC_15stat_annot.txt')
 full = as.data.frame(full)
 CpGs = full$CpG
@@ -1174,14 +1174,14 @@ complete_annot[names(which(pos_enrich_res < 0.05)),]$UCSC_RefGene_Name
 
 a <- as.data.frame(annotation[names(which(pos_enrich_res < 0.05)),])
 a$pval <- pvals_enrich[rownames(a)]
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/supp/')
+# setwd("where")
 write.table(x = a, file = 'regions_1kb_positional_enrichment.txt', quote = F, sep = '\t')
 
 
 # 1 Mb
 pvals_enrich <- positional_enrichment_analysis(sig, bg, 10^6)
 pos_enrich_res <- p.adjust(pvals_enrich, 'bonferroni')
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/supp/')
+# setwd("where")
 complete_annot[names(which(pos_enrich_res < 0.05)),]$UCSC_RefGene_Name
 # [1] "VTRNA1-3"                                                                                                                                                                                           
 # [2] "PCDHA2;PCDHA1;PCDHA1;PCDHA2;PCDHA2"                                                                                                                                                                 
@@ -1362,7 +1362,7 @@ GOterms <- GOterms[GOterms$Ont == 'BP',]
 help(gometh)
 
 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/')
+# setwd("where")
 tiff(filename = paste('GO_term', 'tiff', sep = '.'), width = 2.5, height = 2.5, units = 'in', res = 300, compression = 'none')
 par(mar=c(2, 6, 0, 0.5), mgp=c(3, 1, 0), las=0)
 barplot(-log10(GOterms$FDR[GOterms$FDR < 0.05]), horiz = T, names.arg =  GOterms$Term[GOterms$FDR < 0.05], las = 1,
@@ -1394,18 +1394,18 @@ head(KEGGterms[order(KEGGterms$P.DE, decreasing = F),], 15)
 #### mQTL enrichment
 library(data.table)
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'evCpGs.txt')$V1)
 length(stochCpG) # 333
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/discovery/')
+# setwd("where")
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 tested0 = names(pvals1)
 tested = tested0[!(tested0 %in% stochCpG)]
 length(tested0) # 4652
 length(tested) # 4319
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/annotation/")
+# setwd("where")
 mQTL = fread("15up.ALL.M.tab")
 mQTL = mQTL[mQTL$FDR < 1E-14,]
 dim(mQTL) # 2606914       6

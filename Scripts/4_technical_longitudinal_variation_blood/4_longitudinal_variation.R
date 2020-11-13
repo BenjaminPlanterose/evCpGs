@@ -40,11 +40,11 @@ compute_ICC = function(i, beta, individual, time)
 }
 
 # Read data
-setwd("/media/ben/DATA/Ben/1_evCpGs/")
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'evCpGs.txt')$V1)
 length(stochCpG) # 333
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/discovery/')
+# setwd("where")
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 tested0 = names(pvals1)
 tested = tested0[!(tested0 %in% stochCpG)]
@@ -52,7 +52,7 @@ length(tested0) # 4652
 length(tested) # 4319
 
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/mQTL/')
+# setwd("where")
 control <- as.vector(read.table(file = 'control.txt')$V1)
 length(control) # 998
 
@@ -60,7 +60,7 @@ length(control) # 998
 #####################################################################
 
 # Retrieve data
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/long/')
+# setwd("where")
 phenotype <- getGEO('GSE51388', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -167,7 +167,7 @@ data = data.frame(value = c(ICC_c, ICC_c2, ICC_ev), group = c(rep("c1", times = 
 ggplot(data, aes(x=group, y=value, fill=group)) + geom_violin()
 
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/long/")
+# setwd("where")
 ICC = fread("GSE61151_Summary_icc_M.txt")
 dim(ICC) # 484949      5
 

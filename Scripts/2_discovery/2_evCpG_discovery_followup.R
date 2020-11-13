@@ -119,13 +119,13 @@ process.max <- function(pvals1, pvals2, pvals3)
 #############################################   Read processed data (see data_prep.R)   #############################################
 
 # Set working directory
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/young_external_validation/')
+# setwd("where")
 
 # Read matching twins
 matching <- read.table(file = "matching_MZ.txt", header = T)
 
 # Read raw data (all three normalisations)
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/data/beta/E_risk/')
+# setwd("where")
 beta1 <- fread('2019-08-21_SQN_combat_cellcomp.txt', nThread = 4)
 beta1 <- process.beta.fread(beta1); dim(beta1) # 346555    852
 beta2 <- fread('2019-08-21_dasen_combat_cellcomp.txt', nThread = 4)
@@ -134,12 +134,12 @@ beta3 <- fread('2019-08-22_oobrelicbmiqqn_combat_cellcomp.txt', nThread = 4)
 beta3 <- process.beta.fread(beta3); dim(beta3) # 346555    852
 
 # Read data
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 stochCpG <- as.vector(read.table(file = 'stochCpG.txt')$V1)
 sig = stochCpG
 
 # 
-setwd('/media/ultron/2tb_disk2/Papers/Genome_independent_interindividual_variation_in_dna_methylation_2/res/pvals/')
+# setwd("where")
 pvals1 <- readRDS('y_rTOST_SQN_ComBat_cellcomp_pvalues.rds')
 all <- names(pvals1)
 nosig = all[!(all %in% sig)]

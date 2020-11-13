@@ -22,9 +22,9 @@ library(gplots)
 library(scales)
 
 ## Technical QC ##
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/GSE103768_RAW/")
+#setwd("where")
 rgSet <- read.metharray.exp(getwd(), extended = T); gc()
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/QC/")
+#setwd("where")
 qc <- QCinfo(rgSet)
 bad_cpgs <- qc$badCpG
 write.table(bad_cpgs, file = 'bad_cpgs.txt', row.names = F, col.names = F, quote = F)
@@ -37,7 +37,7 @@ thr = mean(qc_df$bisul) - 3*sd(qc_df$bisul)
 qc_df = data.frame(badFreq = badValuePerSample, bisul = qc$bisul)
 dim(qc_df) # 57 2
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/QC/")
+#setwd("where")
 tiff(filename = "longitudinal_adipose.tiff", height = 427, width = 550, units = "px")
 plot(qc_df$badFreq, qc_df$bisul, ylim = c(0, 35000), xlim = c(0, 0.055), pch = 19, col = alpha("black", 0.2), cex = 0.4,
      xlab = "Percent of low-quality data", ylab = "Average bisulfite conversion intensity", main = "Adipose Longitudinal", las = 1, cex.axis = 0.8)
@@ -50,7 +50,7 @@ dev.off()
 sqn <- preprocessQuantile(rgSet)
 Sex <- minfi::getSex(sqn)
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/QC/")
+# setwd("where")
 tiff(filename = "sex1_longitudinal_adipose.tiff", height = 762, width = 656, units = "px")
 plot(x = Sex$xMed, y = Sex$yMed, type = "n", xlab = "X chr, median total intensity (log2)", 
      ylab = "Y chr, median total intensity (log2)")
@@ -65,7 +65,7 @@ sex.mat <- table(Sex$predictedSex, pheno$`gender:ch1`)
 # M      0   21
 
 # Perform balloon plot
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/QC/")
+# setwd("where")
 tiff(filename = "sex2_longitudinal_adipose.tiff", height = 762, width = 656, units = "px")
 balloonplot(as.table(t(sex.mat)), xlab = 'Predicted', ylab = 'Registered', main = '')
 dev.off()
@@ -85,12 +85,12 @@ heatmap.2(snps, tracecol = NULL, trace = 'none', mar=c(10.1, 4.1), cexCol = 0.5,
 ###############################################################################################
 
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/GSE103768_RAW/")
+# setwd("where")
 rgSet = read.metharray.exp(getwd()); gc()
 samples <- colnames(rgSet)
 rgSamples <- unlist(lapply(X = strsplit(samples, split = '_'), function(X) { paste(X[[1]])}))
 
-setwd('/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/')
+# setwd("where")
 phenotype <- getGEO('GSE103768', destdir=".")
 pheno <- phenotype[[1]]
 pheno <- phenoData(pheno)
@@ -108,14 +108,14 @@ f.SNP <- c(rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$Probe_maf >= 0.01
            rownames(SNPs.147CommonSingle)[SNPs.147CommonSingle$SBE_maf > 0])
 SNP_probes <- na.omit(unique(f.SNP))
 length(SNP_probes) # 99337
-setwd("/media/ben/DATA/Ben/1_evCpGs/annotation/")
+# setwd("where")
 CR_1 <- as.vector(read.table('crossreactive_Chen.txt', header = F)$TargetID) # Chen YA et al. Epigenetics. 2013 Feb;8(2):203-9. doi: 10.4161/epi.23470. Epub 2013 Jan 11.
 kobor <- fread('GPL16304-47833.txt') # Price ME et al. Epigenetics Chromatin. 2013 Mar 3;6(1):4. doi: 10.1186/1756-8935-6-4.
 CR_2 <- unique(c(kobor$ID[kobor$Autosomal_Hits == 'A_YES'], kobor$ID[kobor$XY_Hits == 'XY_YES']))
 CR_probes <- unique(c(CR_1, CR_2))
 length(CR_probes) # 41937
 
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/QC/")
+# setwd("where")
 bad_probes = as.vector(read.table("bad_cpgs.txt", header = F)$V1)
 length(bad_probes)
 
@@ -142,7 +142,7 @@ rm(nocombat.CN.sqn, um.sqn) ; gc()
 
 
 ########## Export ###############
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/adipose_long/")
+# setwd("where")
 fwrite(data.table(nocombat.beta.sqn, keep.rownames = T), paste(Sys.Date(), 'SQN_nocombat_nocellcomp.txt', sep = '_'), quote = F, 
        row.names = T, col.names = T, sep = '\t', nThread = 4)
 ########## Export ###############

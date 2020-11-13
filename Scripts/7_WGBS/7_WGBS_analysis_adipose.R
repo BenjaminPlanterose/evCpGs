@@ -269,7 +269,7 @@ targetted_positional_enrichment_analysis <- function(twinL, twinR, epsilon, wind
 
 
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/')
+# setwd("where")
 phenotype <- fread('E-MTAB-3549.sdrf.txt')
 phenotype <- phenotype[,c(1,3,4,5,6,8,9,32)]
 
@@ -289,7 +289,7 @@ table(phenotype$`Characteristics[organism part]`) # 27 blood and 34 adipose
 
 
 # Read raw files
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/adipose/MZ/')
+# setwd("where")
 list.files()
 read.files()
 
@@ -315,7 +315,7 @@ dim(twin7R) # 23370518
 # iii) add position ID column
 
 
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/adipose/MZ/')
+# setwd("where")
 process.files(); gc() # Takes long!
 
 dim(twin1L) # 7081324
@@ -342,7 +342,7 @@ write.files()
 # Proc 2
 
 # Read blacklisted regions
-setwd('/media/ultron/2tb_disk2/RAW_DATA/2018/twins_project/Zbisulfite_seq_twins/MZ_twins/blacklist/')
+# setwd("where")
 DBR <- fread('consensusBlacklist.bed')
 DER <- fread('dukeExcludeRegions.bed')
 blacklist <- rbind(DBR, DER)
@@ -351,12 +351,12 @@ dim(blacklist) # 2060 6
 # Processing 2 consists of: 
 # i) Excluding DBR and DER blacklisted regions
 
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/adipose/proc1/')
+# setwd("where")
 list.files(pattern = '*.txt')
 read.files2()
 
 
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/adipose/proc1/')
+# setwd("where")
 process.files2()
 
 dim(twin1L) # 7060553
@@ -382,7 +382,7 @@ write.files()
 
 
 # PROC3
-setwd('/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/adipose/proc2/')
+# setwd("where")
 list.files(pattern = '*.txt') # character(0)
 read.files2()
 
@@ -444,7 +444,7 @@ write.files()
 
 
 # Read common positions
-setwd("/media/ultron/2tb_disk2/PROCESSED_DATA/2018/Twin_project/WGBS/adipose/")
+# setwd("where")
 list.files(pattern = '*.txt')
 read.files2()
 
@@ -611,7 +611,7 @@ res = targetted_positional_enrichment_analysis(twin7L, twin7R, 0.4, window, 'chr
 
 
 
-setwd("~/Desktop/")
+# setwd("where")
 tiff(filename = "adipose_blood_wgbs.tiff", width = 6, height = 4, units = "in", res = 300)
 par(mar=c(2,2,1,1))
 CEX = 1.4
@@ -655,7 +655,7 @@ plot(cov, cov2)
 
 
 library(data.table)
-setwd("/media/ben/DATA/Ben/1_evCpGs/data/WGBS/")
+# setwd("where")
 data = fread("E-MTAB-3549.sdrf.txt")
 head(data)
 adipose = data[data$`Characteristics[zygosity]` == "monozygotic" & data$`Characteristics[organism part]` == "adipose tissue of abdominal region",]
