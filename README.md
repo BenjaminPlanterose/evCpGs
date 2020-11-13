@@ -30,14 +30,14 @@ Under the folder /Scripts/ you may find all  R-scripts employed in the data anal
   
   6) *evCpGs' variation across tissues*: all scripts employed in the exploration of evCpGs' behaviour in post-mortem tissues, the replication of evCpGs and there longitudinal stability in adipose tissue.
   
-  7) *evCpGs validation across technologies*: all scripts employed in the validation of evCpGs in whole-genome bisulfite sequencing data of monozygotic twins in blood and in adipose tissue
+  7) *evCpGs validation across technologies*: all scripts employed in the validation of evCpGs in whole-genome bisulfite sequencing data of monozygotic twins in blood and in adipose tissue.
 
 
 
 
 
 
-Please contact us at b.planterosejimenez@erasmusmc.nl for any issues arising.
+Please contact me at b.planterosejimenez@erasmusmc.nl for any questions or issues concerning the scripts.
 
 ### References and Supporting Information
 B. Planterose *et al* (**2020**). Equivalent DNA methylation variation between monozygotic co-twins and unrelated individuals reveals universal epigenetic inter-individual dissimilarity. *Genome Biology*
