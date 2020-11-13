@@ -6,15 +6,15 @@
 
 <sup>1</sup> Department of Genetic Identification, Erasmus MC University Medical Center Rotterdam, Rotterdam, the Netherlands.
 
-2 Key Laboratory of Genomic and Precision Medicine, Beijing Institute of Genomics, Chinese Academy of Sciences, Beijing, P.R. China.
+<sup>2</sup> Key Laboratory of Genomic and Precision Medicine, Beijing Institute of Genomics, Chinese Academy of Sciences, Beijing, P.R. China.
 
-3 University of Chinese Academy of Sciences, Beijing, P.R. China.
+<sup>3</sup> University of Chinese Academy of Sciences, Beijing, P.R. China.
 
-4 Institute of Medical Informatics and Statistics, Kiel University, Kiel, Germany.
+<sup>4</sup> Institute of Medical Informatics and Statistics, Kiel University, Kiel, Germany.
 
-5 University Medical Centre Schleswig-Holstein, Kiel, Germany.
+<sup>5</sup> University Medical Centre Schleswig-Holstein, Kiel, Germany.
 
-6 Department of Twin Research and Genetic Epidemiology, King’s College London, London, United Kingdom.
+<sup>6</sup> Department of Twin Research and Genetic Epidemiology, King’s College London, London, United Kingdom.
 
 
 
