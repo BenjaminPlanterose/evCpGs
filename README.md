@@ -2,7 +2,7 @@
 
 # Equivalent DNA methylation variation between monozygotic co-twins and unrelated individuals reveals universal epigenetic inter-individual dissimilarity
 #
-#### Benjamin Planterose Jiménez, Fan Liu, Diego Montiel González, Jordana Bell, Manfred Kayser, Athina Vidaki
+#### Benjamin Planterose Jiménez, Fan Liu, Amke Caliebe, Diego Montiel González, Jordana T. Bell, Manfred Kayser, Athina Vidaki
 
 ### Department of Genetic Identification 
 #### Erasmus MC University Medical Centre Rotterdam, The Netherlands
@@ -19,7 +19,7 @@
 Please send an email at b.planterosejimenez@erasmusmc.nl if any issues arise while running.
 
 ### References and Supporting Information
-B. Planterose *et al* (**2018**). Universal epigenetic dissimilarity: DNA methylation variation that is equivalent between monozygotic co-twins and unrelated individuals.
+B. Planterose *et al* (**2018**). Equivalent DNA methylation variation between monozygotic co-twins and unrelated individuals reveals universal epigenetic inter-individual dissimilarity. *Genome Biology*
 
 
 
